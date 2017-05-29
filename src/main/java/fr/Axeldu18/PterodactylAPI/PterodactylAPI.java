@@ -52,10 +52,6 @@ public class PterodactylAPI {
 	private @Getter @Setter String mainURL;
 	private @Getter @Setter String publicKey;
 	private @Getter @Setter String secretKey;
-
-	public static void main(String[] args){
-		new PterodactylAPI();
-	}
 	
 	public PterodactylAPI(){
 		this.logger = Logger.getLogger("PterodactylAPI");
@@ -65,11 +61,6 @@ public class PterodactylAPI {
 		this.nodes = new Nodes(this);
 		this.locations = new Locations(this);
 		this.services = new Services(this);
-		
-		this.setMainURL("http://panel.asylyus.fr/");
-		this.setPublicKey("d0y69FV2QOGPWRRM");
-		this.setSecretKey("zGUmXovA3eau7pHG.CZl7J8f.vogqjAC");
-		
 	}
 
 	public void log(Level level, String msg){
