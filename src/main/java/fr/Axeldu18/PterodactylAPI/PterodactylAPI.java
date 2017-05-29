@@ -27,6 +27,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.crypto.Mac;
@@ -40,8 +41,13 @@ import lombok.Setter;
 
 public class PterodactylAPI {
 
-	private @Getter Logger logger;
+	private Logger logger;
 	private @Getter GETMethods getMethods;
+	private @Getter Users users;
+	private @Getter Servers servers;
+	private @Getter Nodes nodes;
+	private @Getter Locations locations;
+	private @Getter Services services;
 	//CONFIGURATION
 	private @Getter @Setter String mainURL;
 	private @Getter @Setter String publicKey;
@@ -50,8 +56,17 @@ public class PterodactylAPI {
 	public PterodactylAPI(){
 		this.logger = Logger.getLogger("PterodactylAPI");
 		this.getMethods = new GETMethods(this);
+		this.users = new Users(this);
+		this.servers = new Servers(this);
+		this.nodes = new Nodes(this);
+		this.locations = new Locations(this);
+		this.services = new Services(this);
 	}
 
+	public void log(Level level, String msg){
+		this.logger.log(level, "[PterodactylAPI] " + msg);
+	}
+	
 	public String hmac(String url) throws Exception {
 		try {
 			Mac sha256_HMAC = Mac.getInstance("HmacSHA256");
@@ -61,7 +76,7 @@ public class PterodactylAPI {
 			return hash;
 		}
 		catch (Exception e){
-			System.out.println("Error");
+			log(Level.SEVERE, " HMAC Error");
 			return null;
 		}
 	}

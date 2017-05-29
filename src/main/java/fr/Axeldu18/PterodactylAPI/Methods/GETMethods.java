@@ -41,7 +41,7 @@ public class GETMethods {
 	
 	public String get(Methods method){
 		if(method.getURL().contains("{params}")){
-			main.getLogger().log(Level.SEVERE, "The method '" + method.toString() + "'contains field {params}, please use 'get' withs params function for this");
+			main.log(Level.SEVERE, "The method '" + method.toString() + "'contains field {params}, please use 'get' withs params function for this");
 			return null;
 		}
 		return call(main.getMainURL() + method.getURL());
@@ -49,7 +49,7 @@ public class GETMethods {
 	
 	public String get(Methods method, String params){
 		if(!method.getURL().contains("{params}")){
-			main.getLogger().log(Level.SEVERE, "The method '" + method.toString() + "' doesn't contains field {params}, please use 'get' function for this");
+			main.log(Level.SEVERE, "The method '" + method.toString() + "' doesn't contains field {params}, please use 'get' function for this");
 			return null;
 		}
 		return call(main.getMainURL() + method.getURL().replace("{params}", params));
@@ -70,7 +70,7 @@ public class GETMethods {
 				return main.readResponse(connection.getErrorStream()).toString();
 			}
 		} catch (Exception e) {
-			main.getLogger().log(Level.SEVERE, e.getMessage());
+			main.log(Level.SEVERE, e.getMessage());
 			e.printStackTrace();
 			return null;
 		}
