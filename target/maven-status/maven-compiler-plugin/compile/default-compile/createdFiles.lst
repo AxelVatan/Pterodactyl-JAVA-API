@@ -5,7 +5,9 @@ fr\Axeldu18\PterodactylAPI\Classes\UserAttributes.class
 fr\Axeldu18\PterodactylAPI\Users.class
 fr\Axeldu18\PterodactylAPI\Locations.class
 fr\Axeldu18\PterodactylAPI\Methods\GETMethods.class
+fr\Axeldu18\PterodactylAPI\Methods\POSTMethods.class
 fr\Axeldu18\PterodactylAPI\Classes\User.class
+fr\Axeldu18\PterodactylAPI\Methods\POSTMethods$Methods.class
 fr\Axeldu18\PterodactylAPI\Classes\Server.class
 fr\Axeldu18\PterodactylAPI\Services.class
 fr\Axeldu18\PterodactylAPI\Servers.class

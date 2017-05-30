@@ -36,6 +36,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -43,6 +44,7 @@ public class PterodactylAPI {
 
 	private Logger logger;
 	private @Getter GETMethods getMethods;
+	private @Getter POSTMethods postMethods;
 	private @Getter Users users;
 	private @Getter Servers servers;
 	private @Getter Nodes nodes;
@@ -52,10 +54,15 @@ public class PterodactylAPI {
 	private @Getter @Setter String mainURL;
 	private @Getter @Setter String publicKey;
 	private @Getter @Setter String secretKey;
+
+	public static void main(String[] args){
+		new PterodactylAPI();
+	}
 	
 	public PterodactylAPI(){
 		this.logger = Logger.getLogger("PterodactylAPI");
 		this.getMethods = new GETMethods(this);
+		this.postMethods = new POSTMethods(this);
 		this.users = new Users(this);
 		this.servers = new Servers(this);
 		this.nodes = new Nodes(this);

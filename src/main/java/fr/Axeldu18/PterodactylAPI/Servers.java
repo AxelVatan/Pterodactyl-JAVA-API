@@ -41,6 +41,9 @@ public class Servers {
 		this.main = main;
 	}
 	
+	/**
+	 * @return Return all the SERVER with ATTRIBUTES
+	 */
 	public HashMap<Integer, Server> getServers(){
 		HashMap<Integer, Server> serversMap = new HashMap<Integer, Server>();
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVERS_LIST_SERVERS));
@@ -82,12 +85,16 @@ public class Servers {
 		return serversMap;
 	}
 
+	/**
+	 * @param id ID of the targeted server.
+	 * @return Return the targeted SERVER with ATTRIBUTES
+	 */
 	public Server getServer(String id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVERS_SINGLE_SERVER, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			main.log(Level.SEVERE, "No SERVER found with this ID");
-			return null;
+			return new Server();
 		}
 		JSONObject serverJSON = jsonObject.getJSONObject("data");
 		Server server = new Server();

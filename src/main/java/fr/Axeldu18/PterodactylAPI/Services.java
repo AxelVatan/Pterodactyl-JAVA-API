@@ -41,6 +41,9 @@ public class Services {
 		this.main = main;
 	}
 	
+	/**
+	 * @return Return all SERVICE with ATTRIBUTES
+	 */
 	public HashMap<Integer, Service> getServices(){
 		HashMap<Integer, Service> servicesMap = new HashMap<Integer, Service>();
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVICES_LIST_SERVICES));
@@ -66,12 +69,16 @@ public class Services {
 		return servicesMap;
 	}
 
+	/**
+	 * @param id ID of the targeted service.
+	 * @return Return the targeted SERVICE with ATTRIBUTES
+	 */
 	public Service getService(String id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVICES_SINGLE_SERVICE, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			main.log(Level.SEVERE, "No SERVICE found with this ID");
-			return null;
+			return new Service();
 		}
 		JSONObject serviceJSON = jsonObject.getJSONObject("data");
 		Service service = new Service();

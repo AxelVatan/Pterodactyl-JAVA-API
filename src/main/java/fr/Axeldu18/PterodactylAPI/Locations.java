@@ -40,23 +40,26 @@ public class Locations {
 		this.main = main;
 	}
 	
+	/**
+	 * @return Return all the LOCATION with ATTRIBUTES
+	 */
 	public HashMap<Integer, Location> getLocations(){
 		HashMap<Integer, Location> locationsMap = new HashMap<Integer, Location>();
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.LOCATIONS_LIST_LOCATIONS));
 		JSONArray jsonArray = jsonObject.getJSONArray("data");
 		for(int i=0;i<jsonArray.length();i++){
 			JSONObject locationJSON = jsonArray.getJSONObject(i);
-			Location server = new Location();
-			server.setId(locationJSON.getInt("id"));
-			server.setType(locationJSON.getString("type"));
+			Location location = new Location();
+			location.setId(locationJSON.getInt("id"));
+			location.setType(locationJSON.getString("type"));
 			JSONObject locationAttributesJSON = locationJSON.getJSONObject("attributes");
 			LocationAttributes locationAttributes = new LocationAttributes();
 			locationAttributes.setShortName(locationAttributesJSON.getString("short"));
 			locationAttributes.setLongName(locationAttributesJSON.getString("long"));
 			locationAttributes.setCreatedAT(locationAttributesJSON.getString("created_at"));
 			locationAttributes.setUpdatedAT(locationAttributesJSON.getString("updated_at"));
-			server.setAttributes(locationAttributes);
-			locationsMap.put(server.getId(), server);
+			location.setAttributes(locationAttributes);
+			locationsMap.put(location.getId(), location);
 		}
 		return locationsMap;
 	}

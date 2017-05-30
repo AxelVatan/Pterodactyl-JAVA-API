@@ -41,6 +41,9 @@ public class Nodes {
 		this.main = main;
 	}
 	
+	/**
+	 * @return Return all the NODE with ATTRIBUTES
+	 */
 	public HashMap<Integer, Node> getNodes(){
 		HashMap<Integer, Node> nodesMap = new HashMap<Integer, Node>();
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.NODES_LIST_NODES));
@@ -74,12 +77,16 @@ public class Nodes {
 		return nodesMap;
 	}
 
+	/**
+	 * @param id ID of the targeted node.
+	 * @return Return all the targeted NODE with ATTRIBUTES
+	 */
 	public Node getNode(String id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.NODES_SINGLE_NODE, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			main.log(Level.SEVERE, "No NODE found with this ID");
-			return null;
+			return new Node();
 		}
 		JSONObject nodeJSON = jsonObject.getJSONObject("data");
 		Node node = new Node();
