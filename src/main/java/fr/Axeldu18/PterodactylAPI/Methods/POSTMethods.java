@@ -20,7 +20,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-*/
+ */
 package fr.Axeldu18.PterodactylAPI.Methods;
 
 import java.io.DataOutputStream;
@@ -36,12 +36,12 @@ import lombok.Getter;
 
 public class POSTMethods {
 
-private PterodactylAPI main;
-	
+	private PterodactylAPI main;
+
 	public POSTMethods(PterodactylAPI main){
 		this.main = main;
 	}
-	
+
 	/**
 	 * @param email Mail of the new user.
 	 * @param username Username of the new user.
@@ -69,7 +69,7 @@ private PterodactylAPI main;
 				"&password="+password+
 				"&root_admin="+admin);
 	}
-	
+
 	/**
 	 * @param name Name of the new server.
 	 * @param user_id ID of a user that exists on the system to assign this server to.
@@ -127,7 +127,7 @@ private PterodactylAPI main;
 				"&pack_id="+pack_id+
 				"&custom_container="+custom_container);
 	}
-	
+
 	public String call(String methodURL, String data){
 		try {
 			URL url = new URL(methodURL);
@@ -155,16 +155,16 @@ private PterodactylAPI main;
 			return null;
 		}
 	}
-	
+
 	@AllArgsConstructor
 	public enum Methods{
 
 		USERS_CREATE_USER("api/admin/users"), //Create a new user on the system.
-		
+
 		SERVERS_CREATE_SERVER("api/admin/servers"), //Create a new server on the panel and associated daemon.
-		
+
 		NODES_CREATE_NODE("api/admin/nodes"); //Creates a new node on the system.
-		
+
 		private @Getter String URL;
 	}
 }

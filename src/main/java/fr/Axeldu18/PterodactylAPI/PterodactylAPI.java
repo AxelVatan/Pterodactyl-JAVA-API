@@ -37,6 +37,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.PUTMethods;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -45,13 +46,14 @@ public class PterodactylAPI {
 	private Logger logger;
 	private @Getter GETMethods getMethods;
 	private @Getter POSTMethods postMethods;
+	private @Getter PUTMethods putMethods;
 	private @Getter Users users;
 	private @Getter Servers servers;
 	private @Getter Nodes nodes;
 	private @Getter Locations locations;
 	private @Getter Services services;
 	//CONFIGURATION
-	private @Getter @Setter String mainURL;
+	private @Getter String mainURL;
 	private @Getter @Setter String publicKey;
 	private @Getter @Setter String secretKey;
 
@@ -63,6 +65,7 @@ public class PterodactylAPI {
 		this.logger = Logger.getLogger("PterodactylAPI");
 		this.getMethods = new GETMethods(this);
 		this.postMethods = new POSTMethods(this);
+		this.putMethods = new PUTMethods(this);
 		this.users = new Users(this);
 		this.servers = new Servers(this);
 		this.nodes = new Nodes(this);
@@ -70,6 +73,13 @@ public class PterodactylAPI {
 		this.services = new Services(this);
 	}
 
+	public void setMainURL(String url) {
+		if(!url.endsWith("/")) {
+			url += "/";
+		}
+		this.mainURL = url;
+	}
+	
 	public void log(Level level, String msg){
 		this.logger.log(level, "[PterodactylAPI] " + msg);
 	}
