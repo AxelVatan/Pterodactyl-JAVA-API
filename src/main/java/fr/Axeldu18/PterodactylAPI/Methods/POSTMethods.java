@@ -23,16 +23,15 @@ SOFTWARE.
  */
 package fr.Axeldu18.PterodactylAPI.Methods;
 
+import fr.Axeldu18.PterodactylAPI.PterodactylAPI;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.apache.commons.lang.Validate;
+
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Level;
-
-import org.apache.commons.lang.Validate;
-
-import fr.Axeldu18.PterodactylAPI.PterodactylAPI;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
 public class POSTMethods {
 
@@ -57,10 +56,7 @@ public class POSTMethods {
 		Validate.notEmpty(first_name, "The FIRST_NAME is required");
 		Validate.notEmpty(last_name, "The LAST_NAME is required");
 		Validate.notNull(root_admin, "The ROOT_ADMIN Boolean is required");
-		int admin = 0;
-		if(root_admin){
-			admin = 1;
-		}
+		int admin = (root_admin) ? 1 : 0;
 		return call(main.getMainURL() + Methods.USERS_CREATE_USER.getURL(), 
 				"email="+email+
 				"&username="+username+
@@ -103,10 +99,7 @@ public class POSTMethods {
 		Validate.notNull(startup, "The STARTUP is required");
 		Validate.notNull(jarName, "The JARNAME is required");
 		Validate.notNull(version, "The VERSION is required");
-		int autoDeploy = 0;
-		if(auto_deploy){
-			autoDeploy = 1;
-		}
+		int autoDeploy = (auto_deploy) ? 1 : 0;
 		return call(main.getMainURL() + Methods.SERVERS_CREATE_SERVER.getURL(), 
 				"name="+name+
 				"&user_id="+user_id+

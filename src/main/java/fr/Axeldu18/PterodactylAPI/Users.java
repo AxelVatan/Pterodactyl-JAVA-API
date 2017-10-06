@@ -23,17 +23,16 @@ SOFTWARE.
 */
 package fr.Axeldu18.PterodactylAPI;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-
-import org.apache.commons.lang.Validate;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import fr.Axeldu18.PterodactylAPI.Classes.User;
 import fr.Axeldu18.PterodactylAPI.Classes.UserAttributes;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import org.apache.commons.lang.Validate;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class Users {
 
@@ -121,10 +120,7 @@ public class Users {
 		Validate.notEmpty(first_name, "The FIRST_NAME is required");
 		Validate.notEmpty(last_name, "The LAST_NAME is required");
 		Validate.notNull(root_admin, "The ROOT_ADMIN Boolean is required");
-		int admin = 0;
-		if(root_admin){
-			admin = 1;
-		}
+		int admin = (root_admin) ? 1 : 0;
 		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.USERS_CREATE_USER.getURL(), 
 				"email="+email+
 				"&username="+username+

@@ -23,17 +23,16 @@ SOFTWARE.
 */
 package fr.Axeldu18.PterodactylAPI;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-
-import org.apache.commons.lang.Validate;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import fr.Axeldu18.PterodactylAPI.Classes.Node;
 import fr.Axeldu18.PterodactylAPI.Classes.NodeAttributes;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods.Methods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import org.apache.commons.lang.Validate;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class Nodes {
 
@@ -149,14 +148,8 @@ public class Nodes {
 		Validate.notEmpty(daemonBase, "The DAEMON_BASE is required");
 		Validate.notNull(daemonListen, "The DAEMON_LISTEN is required");
 		Validate.notNull(daemonSFTP, "The DAEMON_SFTP is required");
-		int publicNodeInt = 0;
-		if(publicNode){
-			publicNodeInt = 1;
-		}
-		int behindProxyInt = 0;
-		if(behind_proxy){
-			behindProxyInt = 1;
-		}
+		int publicNodeInt = (publicNode) ? 1 : 0;
+		int behindProxyInt = (behind_proxy) ? 1 : 0;
 		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.NODES_CREATE_NODE.getURL(), 
 				"name="+name+
 				"&location_id="+location_id+
