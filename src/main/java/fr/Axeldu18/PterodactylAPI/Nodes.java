@@ -44,6 +44,7 @@ public class Nodes {
 	}
 	
 	/**
+	 * Get all nodes registered in panel
 	 * @return Return all the NODE with ATTRIBUTES
 	 */
 	public HashMap<Integer, Node> getNodes(){
@@ -80,6 +81,7 @@ public class Nodes {
 	}
 
 	/**
+	 * Get a node using ID
 	 * @param id ID of the targeted node.
 	 * @return Return all the targeted NODE with ATTRIBUTES
 	 */
@@ -117,11 +119,13 @@ public class Nodes {
 	}
 	
 	/**
+	 * Create a new node
 	 * @param name NAME of the new NODE.
 	 * @param location_id LOCATION_ID corresponding to the location this node should exist under.
 	 * @param publicNode PUBLIC Should this node be public on the system (allows auto-allocation of servers) (0 or 1).
 	 * @param fqdn FQDN or IP to use for this node.
 	 * @param scheme SCHEME Should be https or http depending on the scheme to use when connecting to the node.
+	 * @param behind_proxy If you are running the daemon behind a proxy such as Cloudflare set true
 	 * @param memory MEMORY Total amount of memory in MB to be available for allocation on this node.
 	 * @param memory_overallocate MEMORY_OVERALLOCATE Percentage of memory overallocation allowed.
 	 * @param disk DISK Amount of disk space allowed for allocation.

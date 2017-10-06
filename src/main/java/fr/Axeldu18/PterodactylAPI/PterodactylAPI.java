@@ -53,9 +53,10 @@ public class PterodactylAPI {
 	private @Getter Locations locations;
 	private @Getter Services services;
 	//CONFIGURATION
-	private @Getter String mainURL;
+	private String mainURL;
 	private @Getter @Setter String publicKey;
 	private @Getter @Setter String secretKey;
+	private @Getter @Setter boolean secureConection;
 
 	public static void main(String[] args){
 		new PterodactylAPI();
@@ -71,13 +72,23 @@ public class PterodactylAPI {
 		this.nodes = new Nodes(this);
 		this.locations = new Locations(this);
 		this.services = new Services(this);
+		this.secureConection = false;
 	}
 
+	/**
+	 * Set the URL for panel
+	 * @param url URL of panel
+	 */
 	public void setMainURL(String url) {
+		url = url.replaceAll("^(http|https)://","");
 		if(!url.endsWith("/")) {
 			url += "/";
 		}
 		this.mainURL = url;
+	}
+
+	public String getMainURL() {
+		return (secureConection) ? "https://" + mainURL : "http://" + mainURL;
 	}
 	
 	public void log(Level level, String msg){
