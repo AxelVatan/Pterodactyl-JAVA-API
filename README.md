@@ -1,7 +1,7 @@
 # Pterodactyl-JAVA-API
  A java adaptation for the use of the Pterodactyl panel API
 
-# How to use (VER:1.2)
+# How to use (VER:1.4)
 For use you need to call the class PterodactylAPI like this:
 ```java 
 PterodactylAPI api = new PterodactylAPI();
