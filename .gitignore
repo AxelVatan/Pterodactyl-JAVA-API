@@ -58,6 +58,7 @@ cmake-build-debug/
 # IntelliJ
 out/
 
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
@@ -73,5 +74,6 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
-.gitignore
+target/
 .idea/
+Pterodactyl-JAVA-API.iml
