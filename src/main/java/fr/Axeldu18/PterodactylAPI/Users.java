@@ -25,6 +25,7 @@ package fr.Axeldu18.PterodactylAPI;
 
 import fr.Axeldu18.PterodactylAPI.Classes.User;
 import fr.Axeldu18.PterodactylAPI.Classes.UserAttributes;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 import org.apache.commons.lang.Validate;
@@ -77,7 +78,7 @@ public class Users {
 	 * @param id ID of the targeted user.
 	 * @return Return the targeted USER with ATTRIBUTES.
 	 */
-	public User getUser(String id){
+	public User getUser(int id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(GETMethods.Methods.USERS_SINGLE_USER, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
@@ -103,6 +104,14 @@ public class Users {
 		userAttributes.setUpdatedAT(userAttributesJSON.getString("updated_at"));
 		user.setAttributes(userAttributes);
 		return user;
+	}
+	
+	/**
+	 * @param id + "" ID of the targeted user.
+	 * @return If the deletion was successful.
+	 */
+	public boolean deleteUser(int id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id);
 	}
 	
 	/**
@@ -134,7 +143,7 @@ public class Users {
 			return new User();
 		}
 		JSONObject userJSON = jsonObject.getJSONObject("data");
-		User user = getUser(userJSON.get("id").toString());
+		User user = getUser(userJSON.getInt("id"));
 		return user;
 	}
 }

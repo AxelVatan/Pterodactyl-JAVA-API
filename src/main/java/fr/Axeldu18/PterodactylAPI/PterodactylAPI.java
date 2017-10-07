@@ -39,12 +39,15 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
+
 public class PterodactylAPI {
 
 	private Logger logger;
 	private @Getter GETMethods getMethods;
 	private @Getter POSTMethods postMethods;
 	private @Getter PUTMethods putMethods;
+	private @Getter DELETEMethods deleteMethods;
 	private @Getter Users users;
 	private @Getter Servers servers;
 	private @Getter Nodes nodes;
@@ -65,6 +68,7 @@ public class PterodactylAPI {
 		this.getMethods = new GETMethods(this);
 		this.postMethods = new POSTMethods(this);
 		this.putMethods = new PUTMethods(this);
+		this.deleteMethods = new DELETEMethods(this);
 		this.users = new Users(this);
 		this.servers = new Servers(this);
 		this.nodes = new Nodes(this);
