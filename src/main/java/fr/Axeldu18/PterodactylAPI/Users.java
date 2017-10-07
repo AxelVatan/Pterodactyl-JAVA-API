@@ -79,8 +79,8 @@ public class Users {
 	 * @param id ID of the targeted user.
 	 * @return Return the targeted USER with ATTRIBUTES.
 	 */
-	public User getUser(String id){
-		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(GETMethods.Methods.USERS_SINGLE_USER, id));
+	public User getUser(int id){
+		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(GETMethods.Methods.USERS_SINGLE_USER, id + ""));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			main.log(Level.SEVERE, "No USER found with this ID");
@@ -108,11 +108,11 @@ public class Users {
 	}
 	
 	/**
-	 * @param id ID of the targeted user.
+	 * @param id + "" ID of the targeted user.
 	 * @return If the deletion was successful.
 	 */
-	public boolean deleteUser(String id){
-		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id);
+	public boolean deleteUser(int id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id + "");
 	}
 	
 	/**
@@ -146,7 +146,7 @@ public class Users {
 			return new User();
 		}
 		JSONObject userJSON = jsonObject.getJSONObject("data");
-		User user = getUser(userJSON.get("id").toString());
+		User user = getUser(userJSON.getInt("id"));
 		return user;
 	}
 }
