@@ -32,6 +32,7 @@ import org.json.JSONObject;
 
 import fr.Axeldu18.PterodactylAPI.Classes.User;
 import fr.Axeldu18.PterodactylAPI.Classes.UserAttributes;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 
@@ -104,6 +105,14 @@ public class Users {
 		userAttributes.setUpdatedAT(userAttributesJSON.getString("updated_at"));
 		user.setAttributes(userAttributes);
 		return user;
+	}
+	
+	/**
+	 * @param id ID of the targeted user.
+	 * @return If the deletion was successful.
+	 */
+	public boolean deleteUser(String id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id);
 	}
 	
 	/**
