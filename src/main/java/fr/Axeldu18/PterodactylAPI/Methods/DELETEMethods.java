@@ -35,6 +35,9 @@ public class DELETEMethods {
 	
 	private PterodactylAPI main;
 	
+	@Getter
+	private String lastError = "";
+	
 	public DELETEMethods(PterodactylAPI main){
 		this.main = main;
 	}
@@ -67,6 +70,7 @@ public class DELETEMethods {
 			if (responseCode == HttpURLConnection.HTTP_NO_CONTENT) {
 				return true;
 			} else {
+				this.lastError = main.readResponse(connection.getErrorStream()).toString();
 				return false;
 			}
 		} catch (Exception e) {
