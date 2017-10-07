@@ -80,7 +80,7 @@ public class Users {
 	 * @return Return the targeted USER with ATTRIBUTES.
 	 */
 	public User getUser(int id){
-		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(GETMethods.Methods.USERS_SINGLE_USER, id + ""));
+		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(GETMethods.Methods.USERS_SINGLE_USER, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			main.log(Level.SEVERE, "No USER found with this ID");
@@ -112,7 +112,7 @@ public class Users {
 	 * @return If the deletion was successful.
 	 */
 	public boolean deleteUser(int id){
-		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id + "");
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id);
 	}
 	
 	/**

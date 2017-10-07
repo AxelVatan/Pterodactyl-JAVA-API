@@ -58,6 +58,10 @@ public class DELETEMethods {
 		return call(main.getMainURL() + method.getURL().replace("{params}", params));
 	}
 	
+	public boolean delete(Methods method, int id){
+		return this.delete(method, id + "");
+	}
+	
 	private boolean call(String methodURL){
 		try {
 			URL url = new URL(methodURL);

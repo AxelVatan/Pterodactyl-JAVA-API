@@ -84,7 +84,7 @@ public class Nodes {
 	 * @param id ID of the targeted node.
 	 * @return Return all the targeted NODE with ATTRIBUTES
 	 */
-	public Node getNode(String id){
+	public Node getNode(int id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.NODES_SINGLE_NODE, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
@@ -121,7 +121,7 @@ public class Nodes {
 	 * @param id ID of the targeted node.
 	 * @return If the deletion was successful.
 	 */
-	public boolean deleteServer(String id){
+	public boolean deleteNode(int id){
 		return main.getDeleteMethods().delete(DELETEMethods.Methods.NODE, id);
 	}
 
@@ -182,7 +182,7 @@ public class Nodes {
 			return new Node();
 		}
 		JSONObject nodeJSON = jsonObject.getJSONObject("data");
-		Node node = getNode(nodeJSON.get("id").toString());
+		Node node = getNode(nodeJSON.getInt("id"));
 		return node;
 	}
 }
