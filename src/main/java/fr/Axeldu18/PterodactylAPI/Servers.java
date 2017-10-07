@@ -90,8 +90,8 @@ public class Servers {
 	 * @param id ID of the targeted server.
 	 * @return Return the targeted SERVER with ATTRIBUTES
 	 */
-	public Server getServer(String id){
-		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVERS_SINGLE_SERVER, id));
+	public Server getServer(int id){
+		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVERS_SINGLE_SERVER, ""+id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			main.log(Level.SEVERE, "No SERVER found with this ID");
@@ -136,8 +136,8 @@ public class Servers {
 	 * @param force Force deletion of the targetted server.
 	 * @return If the deletion was successful.
 	 */
-	public boolean deleteServer(String id, boolean force){
-		return main.getDeleteMethods().delete(DELETEMethods.Methods.SERVER, id + "/" + (force ? "1" : "0"));
+	public boolean deleteServer(int id, boolean force){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.SERVER, id + (force ? "/force" : ""));
 	}
 
 	
