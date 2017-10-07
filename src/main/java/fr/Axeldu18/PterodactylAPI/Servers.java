@@ -133,11 +133,10 @@ public class Servers {
 	
 	/**
 	 * @param id ID of the targeted server.
-	 * @param force Force deletion of the targetted server.
 	 * @return If the deletion was successful.
 	 */
-	public boolean deleteServer(int id, boolean force){
-		return main.getDeleteMethods().delete(DELETEMethods.Methods.SERVER, id + (force ? "/force" : ""));
+	public boolean deleteServer(int id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.SERVER, id + "");
 	}
 
 	
