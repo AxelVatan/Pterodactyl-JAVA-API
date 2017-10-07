@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.logging.Level;
 
 import fr.Axeldu18.PterodactylAPI.PterodactylAPI;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods.Methods;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -54,6 +55,11 @@ public class GETMethods {
 		}
 		return call(main.getMainURL() + method.getURL().replace("{params}", params));
 	}
+	
+	public String get(Methods method, int id){
+		return this.get(method, id + "");
+	}
+
 	
 	private String call(String methodURL){
 		try {

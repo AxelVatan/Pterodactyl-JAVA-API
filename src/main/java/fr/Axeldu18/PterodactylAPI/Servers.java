@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import fr.Axeldu18.PterodactylAPI.Classes.Server;
 import fr.Axeldu18.PterodactylAPI.Classes.ServerAttributes;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods.Methods;
 
 public class Servers {
@@ -89,7 +90,7 @@ public class Servers {
 	 * @param id ID of the targeted server.
 	 * @return Return the targeted SERVER with ATTRIBUTES
 	 */
-	public Server getServer(String id){
+	public Server getServer(int id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.SERVERS_SINGLE_SERVER, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
@@ -129,4 +130,14 @@ public class Servers {
 		server.setAttributes(serverAttributes);
 		return server;
 	}
+	
+	/**
+	 * @param id ID of the targeted server.
+	 * @return If the deletion was successful.
+	 */
+	public boolean deleteServer(int id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.SERVER, id);
+	}
+
+	
 }
