@@ -35,6 +35,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.PUTMethods;
@@ -47,6 +48,7 @@ public class PterodactylAPI {
 	private @Getter GETMethods getMethods;
 	private @Getter POSTMethods postMethods;
 	private @Getter PUTMethods putMethods;
+	private @Getter DELETEMethods deleteMethods;
 	private @Getter Users users;
 	private @Getter Servers servers;
 	private @Getter Nodes nodes;
@@ -66,6 +68,7 @@ public class PterodactylAPI {
 		this.getMethods = new GETMethods(this);
 		this.postMethods = new POSTMethods(this);
 		this.putMethods = new PUTMethods(this);
+		this.deleteMethods = new DELETEMethods(this);
 		this.users = new Users(this);
 		this.servers = new Servers(this);
 		this.nodes = new Nodes(this);
