@@ -23,23 +23,21 @@ SOFTWARE.
 */
 package fr.Axeldu18.PterodactylAPI;
 
+import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.PUTMethods;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.codec.binary.Base64;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
-
-import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
-import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
-import fr.Axeldu18.PterodactylAPI.Methods.PUTMethods;
-import lombok.Getter;
-import lombok.Setter;
 
 public class PterodactylAPI {
 
@@ -80,6 +78,7 @@ public class PterodactylAPI {
 	 * @param url URL of panel
 	 */
 	public void setMainURL(String url) {
+		this.secureConection = url.contains("https://");
 		url = url.replaceAll("^(http|https)://","");
 		if(!url.endsWith("/")) {
 			url += "/";

@@ -1,12 +1,12 @@
-fr\Axeldu18\PterodactylAPI\Classes\ServerAttributes.class
 fr\Axeldu18\PterodactylAPI\Classes\NodeAttributes.class
-fr\Axeldu18\PterodactylAPI\Users.class
+fr\Axeldu18\PterodactylAPI\Classes\ServerAttributes.class
 fr\Axeldu18\PterodactylAPI\Classes\Location.class
 fr\Axeldu18\PterodactylAPI\Classes\UserAttributes.class
+fr\Axeldu18\PterodactylAPI\Users.class
 fr\Axeldu18\PterodactylAPI\Locations.class
 fr\Axeldu18\PterodactylAPI\Methods\GETMethods.class
-fr\Axeldu18\PterodactylAPI\Methods\PUTMethods.class
 fr\Axeldu18\PterodactylAPI\Methods\POSTMethods.class
+fr\Axeldu18\PterodactylAPI\Methods\PUTMethods.class
 fr\Axeldu18\PterodactylAPI\Classes\User.class
 fr\Axeldu18\PterodactylAPI\Methods\POSTMethods$Methods.class
 fr\Axeldu18\PterodactylAPI\Classes\Server.class
