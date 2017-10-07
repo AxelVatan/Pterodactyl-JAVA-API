@@ -27,6 +27,7 @@ import fr.Axeldu18.PterodactylAPI.PterodactylAPI;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang.Validate;
+import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
@@ -100,25 +101,26 @@ public class POSTMethods {
 		Validate.notNull(jarName, "The JARNAME is required");
 		Validate.notNull(version, "The VERSION is required");
 		int autoDeploy = (auto_deploy) ? 1 : 0;
-		return call(main.getMainURL() + Methods.SERVERS_CREATE_SERVER.getURL(), 
-				"name="+name+
-				"&user_id="+user_id+
-				"&location_id="+location_id+
-				"&node_id="+node_id+
-				"&allocation_id="+allocation_id+
-				"&memory="+memory+
-				"&swap="+swap+
-				"&disk="+disk+
-				"&cpu="+cpu+
-				"&io="+io+
-				"&service_id="+service_id+
-				"&option_id="+option_id+
-				"&startup="+startup+
-				"&env_SERVER_JARFILE="+jarName+
-				"&env_DL_VERSION="+version+
-				"&auto_deploy="+autoDeploy+
-				"&pack_id="+pack_id+
-				"&custom_container="+custom_container);
+		JSONObject jsonServerPost = new JSONObject();
+		jsonServerPost.put("name",name);
+		jsonServerPost.put("user_id",node_id);
+		jsonServerPost.put("location_id",location_id);
+		jsonServerPost.put("node_id",node_id);
+		jsonServerPost.put("allocation_id",allocation_id);
+		jsonServerPost.put("memory",memory);
+		jsonServerPost.put("swap",swap);
+		jsonServerPost.put("disk",disk);
+		jsonServerPost.put("cpu",cpu);
+		jsonServerPost.put("io",io);
+		jsonServerPost.put("service_id",service_id);
+		jsonServerPost.put("option_id",option_id);
+		jsonServerPost.put("startup",startup);
+		jsonServerPost.put("env_SERVER_JARFILE",jarName);
+		jsonServerPost.put("env_DL_VERSION",version);
+		jsonServerPost.put("auto_deploy",autoDeploy);
+		jsonServerPost.put("pack_id",pack_id);
+		jsonServerPost.put("custom_container",custom_container);
+		return call(main.getMainURL() + Methods.SERVERS_CREATE_SERVER.getURL(), jsonServerPost.toString());
 	}
 
 	public String call(String methodURL, String data){
@@ -126,9 +128,14 @@ public class POSTMethods {
 			URL url = new URL(methodURL);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			String hmac = main.getPublicKey() + "." + main.hmac(methodURL+data);
+			System.out.println("DEBUG CALL: " + methodURL);
+			System.out.println("DEBUG CALL2: " + methodURL+data);
+			System.out.println("DEBUG CALL3: " + hmac);
+
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("User-Agent", "Pterodactyl Java-API");
 			connection.setRequestProperty("Authorization", "Bearer " + hmac.replaceAll("\n", ""));
+			connection.setRequestProperty("Content-Type","application/json");
 			connection.setDoOutput(true);
 
 			DataOutputStream wr = new DataOutputStream(connection.getOutputStream());

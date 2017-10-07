@@ -160,20 +160,23 @@ public class Nodes {
 		Validate.notNull(daemonSFTP, "The DAEMON_SFTP is required");
 		int publicNodeInt = (publicNode) ? 1 : 0;
 		int behindProxyInt = (behind_proxy) ? 1 : 0;
+		JSONObject jsonNodeRequest = new JSONObject();
+		jsonNodeRequest.put("name",name);
+		jsonNodeRequest.put("location_id",location_id);
+		jsonNodeRequest.put("public",publicNodeInt);
+		jsonNodeRequest.put("fqdn",fqdn);
+		jsonNodeRequest.put("behind_proxy",behindProxyInt);
+		jsonNodeRequest.put("scheme",scheme);
+		jsonNodeRequest.put("memory",memory);
+		jsonNodeRequest.put("memory_overallocate",memory_overallocate);
+		jsonNodeRequest.put("disk",disk);
+		jsonNodeRequest.put("disk_overallocate",disk_overallocate);
+		jsonNodeRequest.put("daemonBase",daemonBase);
+		jsonNodeRequest.put("daemonListen",daemonListen);
+		jsonNodeRequest.put("daemonSFTP",daemonSFTP);
 		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.NODES_CREATE_NODE.getURL(), 
-				"name="+name+
-				"&location_id="+location_id+
-				"&public="+publicNodeInt+
-				"&fqdn="+fqdn+
-				"&behind_proxy="+behindProxyInt+
-				"&scheme="+scheme+
-				"&memory="+memory+
-				"&memory_overallocate="+memory_overallocate+
-				"&disk="+disk+
-				"&disk_overallocate="+disk_overallocate+
-				"&daemonBase="+daemonBase+
-				"&daemonListen="+daemonListen+
-				"&daemonSFTP="+daemonSFTP));
+				jsonNodeRequest.toString()));
+		System.out.println("DEBUG: \n" + jsonNodeRequest.toString());
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			return new Node();

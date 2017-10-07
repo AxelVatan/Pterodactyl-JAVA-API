@@ -130,13 +130,14 @@ public class Users {
 		Validate.notEmpty(last_name, "The LAST_NAME is required");
 		Validate.notNull(root_admin, "The ROOT_ADMIN Boolean is required");
 		int admin = (root_admin) ? 1 : 0;
-		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.USERS_CREATE_USER.getURL(), 
-				"email="+email+
-				"&username="+username+
-				"&name_first="+first_name+
-				"&name_last="+last_name+
-				"&password="+password+
-				"&root_admin="+admin));
+		JSONObject jsonUserPost = new JSONObject();
+		jsonUserPost.put("email",email);
+		jsonUserPost.put("username",email);
+		jsonUserPost.put("name_first",email);
+		jsonUserPost.put("name_last",email);
+		jsonUserPost.put("password",email);
+		jsonUserPost.put("root_admin",email);
+		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.USERS_CREATE_USER.getURL(),jsonUserPost.toString()));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			return new User();
