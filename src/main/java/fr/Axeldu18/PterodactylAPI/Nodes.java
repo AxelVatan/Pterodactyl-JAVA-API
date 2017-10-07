@@ -33,6 +33,7 @@ import org.json.JSONObject;
 import fr.Axeldu18.PterodactylAPI.Classes.Node;
 import fr.Axeldu18.PterodactylAPI.Classes.NodeAttributes;
 import fr.Axeldu18.PterodactylAPI.Methods.GETMethods.Methods;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
 import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 
 public class Nodes {
@@ -115,6 +116,15 @@ public class Nodes {
 		node.setAttributes(nodeAttributes);
 		return node;
 	}
+	
+	/**
+	 * @param id ID of the targeted node.
+	 * @return If the deletion was successful.
+	 */
+	public boolean deleteServer(String id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.NODE, id);
+	}
+
 	
 	/**
 	 * @param name NAME of the new NODE.
