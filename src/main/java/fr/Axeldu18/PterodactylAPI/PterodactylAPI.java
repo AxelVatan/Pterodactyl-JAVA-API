@@ -23,6 +23,15 @@ SOFTWARE.
 */
 package fr.Axeldu18.PterodactylAPI;
 
+import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.PUTMethods;
+import lombok.Getter;
+import lombok.Setter;
+import org.apache.commons.codec.binary.Base64;
+
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,16 +39,7 @@ import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
-
-import org.apache.commons.codec.binary.Base64;
-
-import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
-import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
-import fr.Axeldu18.PterodactylAPI.Methods.PUTMethods;
-import lombok.Getter;
-import lombok.Setter;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
 
 public class PterodactylAPI {
 
@@ -47,15 +47,17 @@ public class PterodactylAPI {
 	private @Getter GETMethods getMethods;
 	private @Getter POSTMethods postMethods;
 	private @Getter PUTMethods putMethods;
+	private @Getter DELETEMethods deleteMethods;
 	private @Getter Users users;
 	private @Getter Servers servers;
 	private @Getter Nodes nodes;
 	private @Getter Locations locations;
 	private @Getter Services services;
 	//CONFIGURATION
-	private @Getter String mainURL;
+	private String mainURL;
 	private @Getter @Setter String publicKey;
 	private @Getter @Setter String secretKey;
+	private @Getter @Setter boolean secureConection;
 
 	public static void main(String[] args){
 		new PterodactylAPI();
@@ -66,18 +68,30 @@ public class PterodactylAPI {
 		this.getMethods = new GETMethods(this);
 		this.postMethods = new POSTMethods(this);
 		this.putMethods = new PUTMethods(this);
+		this.deleteMethods = new DELETEMethods(this);
 		this.users = new Users(this);
 		this.servers = new Servers(this);
 		this.nodes = new Nodes(this);
 		this.locations = new Locations(this);
 		this.services = new Services(this);
+		this.secureConection = false;
 	}
 
+	/**
+	 * Set the URL for panel
+	 * @param url URL of panel
+	 */
 	public void setMainURL(String url) {
+		this.secureConection = url.contains("https://");
+		url = url.replaceAll("^(http|https)://","");
 		if(!url.endsWith("/")) {
 			url += "/";
 		}
 		this.mainURL = url;
+	}
+
+	public String getMainURL() {
+		return (secureConection) ? "https://" + mainURL : "http://" + mainURL;
 	}
 	
 	public void log(Level level, String msg){

@@ -23,17 +23,17 @@ SOFTWARE.
 */
 package fr.Axeldu18.PterodactylAPI;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-
+import fr.Axeldu18.PterodactylAPI.Classes.User;
+import fr.Axeldu18.PterodactylAPI.Classes.UserAttributes;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 import org.apache.commons.lang.Validate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import fr.Axeldu18.PterodactylAPI.Classes.User;
-import fr.Axeldu18.PterodactylAPI.Classes.UserAttributes;
-import fr.Axeldu18.PterodactylAPI.Methods.GETMethods;
-import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class Users {
 
@@ -78,7 +78,7 @@ public class Users {
 	 * @param id ID of the targeted user.
 	 * @return Return the targeted USER with ATTRIBUTES.
 	 */
-	public User getUser(String id){
+	public User getUser(int id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(GETMethods.Methods.USERS_SINGLE_USER, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
@@ -107,6 +107,14 @@ public class Users {
 	}
 	
 	/**
+	 * @param id + "" ID of the targeted user.
+	 * @return If the deletion was successful.
+	 */
+	public boolean deleteUser(int id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.USER, id);
+	}
+	
+	/**
 	 * @param email Mail of the new user.
 	 * @param username Username of the new user.
 	 * @param first_name First name of the new user.
@@ -121,23 +129,21 @@ public class Users {
 		Validate.notEmpty(first_name, "The FIRST_NAME is required");
 		Validate.notEmpty(last_name, "The LAST_NAME is required");
 		Validate.notNull(root_admin, "The ROOT_ADMIN Boolean is required");
-		int admin = 0;
-		if(root_admin){
-			admin = 1;
-		}
-		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.USERS_CREATE_USER.getURL(), 
-				"email="+email+
-				"&username="+username+
-				"&name_first="+first_name+
-				"&name_last="+last_name+
-				"&password="+password+
-				"&root_admin="+admin));
+		int admin = (root_admin) ? 1 : 0;
+		JSONObject jsonUserPost = new JSONObject();
+		jsonUserPost.put("email",email);
+		jsonUserPost.put("username",email);
+		jsonUserPost.put("name_first",email);
+		jsonUserPost.put("name_last",email);
+		jsonUserPost.put("password",email);
+		jsonUserPost.put("root_admin",email);
+		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.USERS_CREATE_USER.getURL(),jsonUserPost.toString()));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			return new User();
 		}
 		JSONObject userJSON = jsonObject.getJSONObject("data");
-		User user = getUser(userJSON.get("id").toString());
+		User user = getUser(userJSON.getInt("id"));
 		return user;
 	}
 }

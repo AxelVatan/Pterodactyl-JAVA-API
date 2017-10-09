@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.Axeldu18.Pterodactyl-JAVA-API</groupId>
     <artifactId>Pterodactyl-JAVA-API</artifactId>
-    <version>1.3-SNAPSHOT</version>
+    <version>1.4-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <developers>

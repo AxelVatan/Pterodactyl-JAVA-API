@@ -1,13 +1,14 @@
 # Pterodactyl-JAVA-API
  A java adaptation for the use of the Pterodactyl panel API
 
-# How to use (VER:1.2)
+# How to use (VER:1.4)
 For use you need to call the class PterodactylAPI like this:
 ```java 
 PterodactylAPI api = new PterodactylAPI();
 api.setMainURL("URL OF YOUR PANEL");
 api.setPublicKey("PUBLIC API KEY");
 api.setSecretKey("SECRET API KEY");
+api.setSecureConection(true|false); //Set secure conection (default false)
 ```
 Then to retrieve the list of servers on the system you need to call the function getServer() in Servers classes
 ```java

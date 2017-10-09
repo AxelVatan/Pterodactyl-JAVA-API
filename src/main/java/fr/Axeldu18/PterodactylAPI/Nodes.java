@@ -23,17 +23,17 @@ SOFTWARE.
 */
 package fr.Axeldu18.PterodactylAPI;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-
+import fr.Axeldu18.PterodactylAPI.Classes.Node;
+import fr.Axeldu18.PterodactylAPI.Classes.NodeAttributes;
+import fr.Axeldu18.PterodactylAPI.Methods.GETMethods.Methods;
+import fr.Axeldu18.PterodactylAPI.Methods.DELETEMethods;
+import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
 import org.apache.commons.lang.Validate;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import fr.Axeldu18.PterodactylAPI.Classes.Node;
-import fr.Axeldu18.PterodactylAPI.Classes.NodeAttributes;
-import fr.Axeldu18.PterodactylAPI.Methods.GETMethods.Methods;
-import fr.Axeldu18.PterodactylAPI.Methods.POSTMethods;
+import java.util.HashMap;
+import java.util.logging.Level;
 
 public class Nodes {
 
@@ -44,6 +44,7 @@ public class Nodes {
 	}
 	
 	/**
+	 * Get all nodes registered in panel
 	 * @return Return all the NODE with ATTRIBUTES
 	 */
 	public HashMap<Integer, Node> getNodes(){
@@ -80,10 +81,11 @@ public class Nodes {
 	}
 
 	/**
+	 * Get a node using ID
 	 * @param id ID of the targeted node.
 	 * @return Return all the targeted NODE with ATTRIBUTES
 	 */
-	public Node getNode(String id){
+	public Node getNode(int id){
 		JSONObject jsonObject = new JSONObject(main.getGetMethods().get(Methods.NODES_SINGLE_NODE, id));
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
@@ -117,11 +119,22 @@ public class Nodes {
 	}
 	
 	/**
+	 * @param id ID of the targeted node.
+	 * @return If the deletion was successful.
+	 */
+	public boolean deleteNode(int id){
+		return main.getDeleteMethods().delete(DELETEMethods.Methods.NODE, id);
+	}
+
+	
+	/**
+	 * Create a new node
 	 * @param name NAME of the new NODE.
 	 * @param location_id LOCATION_ID corresponding to the location this node should exist under.
 	 * @param publicNode PUBLIC Should this node be public on the system (allows auto-allocation of servers) (0 or 1).
 	 * @param fqdn FQDN or IP to use for this node.
 	 * @param scheme SCHEME Should be https or http depending on the scheme to use when connecting to the node.
+	 * @param behind_proxy If you are running the daemon behind a proxy such as Cloudflare set true
 	 * @param memory MEMORY Total amount of memory in MB to be available for allocation on this node.
 	 * @param memory_overallocate MEMORY_OVERALLOCATE Percentage of memory overallocation allowed.
 	 * @param disk DISK Amount of disk space allowed for allocation.
@@ -145,34 +158,31 @@ public class Nodes {
 		Validate.notEmpty(daemonBase, "The DAEMON_BASE is required");
 		Validate.notNull(daemonListen, "The DAEMON_LISTEN is required");
 		Validate.notNull(daemonSFTP, "The DAEMON_SFTP is required");
-		int publicNodeInt = 0;
-		if(publicNode){
-			publicNodeInt = 1;
-		}
-		int behindProxyInt = 0;
-		if(behind_proxy){
-			behindProxyInt = 1;
-		}
+		int publicNodeInt = (publicNode) ? 1 : 0;
+		int behindProxyInt = (behind_proxy) ? 1 : 0;
+		JSONObject jsonNodeRequest = new JSONObject();
+		jsonNodeRequest.put("name",name);
+		jsonNodeRequest.put("location_id",location_id);
+		jsonNodeRequest.put("public",publicNodeInt);
+		jsonNodeRequest.put("fqdn",fqdn);
+		jsonNodeRequest.put("behind_proxy",behindProxyInt);
+		jsonNodeRequest.put("scheme",scheme);
+		jsonNodeRequest.put("memory",memory);
+		jsonNodeRequest.put("memory_overallocate",memory_overallocate);
+		jsonNodeRequest.put("disk",disk);
+		jsonNodeRequest.put("disk_overallocate",disk_overallocate);
+		jsonNodeRequest.put("daemonBase",daemonBase);
+		jsonNodeRequest.put("daemonListen",daemonListen);
+		jsonNodeRequest.put("daemonSFTP",daemonSFTP);
 		JSONObject jsonObject = new JSONObject(main.getPostMethods().call(main.getMainURL() + POSTMethods.Methods.NODES_CREATE_NODE.getURL(), 
-				"name="+name+
-				"&location_id="+location_id+
-				"&public="+publicNodeInt+
-				"&fqdn="+fqdn+
-				"&behind_proxy="+behindProxyInt+
-				"&scheme="+scheme+
-				"&memory="+memory+
-				"&memory_overallocate="+memory_overallocate+
-				"&disk="+disk+
-				"&disk_overallocate="+disk_overallocate+
-				"&daemonBase="+daemonBase+
-				"&daemonListen="+daemonListen+
-				"&daemonSFTP="+daemonSFTP));
+				jsonNodeRequest.toString()));
+		System.out.println("DEBUG: \n" + jsonNodeRequest.toString());
 		if(!jsonObject.has("data")){
 			main.log(Level.SEVERE, jsonObject.toString());
 			return new Node();
 		}
 		JSONObject nodeJSON = jsonObject.getJSONObject("data");
-		Node node = getNode(nodeJSON.get("id").toString());
+		Node node = getNode(nodeJSON.getInt("id"));
 		return node;
 	}
 }
